@@ -74,6 +74,19 @@ resource "aws_instance" "Vm" {
     network_interface_id = aws_network_interface.ENI.id
     device_index = 0
   }
+   provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo yum install -y git",
+      "sudo yum install -y dotnet-sdk-5.0",  # Install .NET SDK
+      "git clone https://github.com/fikay/360Rides.git",
+      "cd 360Rides",
+      "dotnet restore",  # Restore dependencies
+      "dotnet publish -c Release -o published",  # Publish the application
+      "sudo cp -r published /var/www/360Rides",  # Copy published files to web server directory
+      "sudo systemctl restart nginx"  # Restart web server (assuming you're using Nginx)
+    ]
+  }
   tags = {
     Name = "My_ec2"
   }
@@ -90,4 +103,9 @@ resource "aws_network_interface" "ENI" {
 
 resource "aws_eip" "Elastic_ip" {
   domain = "vpc"
+}
+
+resource "aws_eip_association" "eip_assoc" {
+    allocation_id = aws_eip.Elastic_ip.id
+  network_interface_id = aws_network_interface.ENI.id
 }

@@ -34,4 +34,4 @@ I went by step 2 in order to learn more about roles in AWS and below are the ste
 
 In order to create the workflow, we have to create a special directory for the yml file as this is where github will pull from. The folder structure looks like this ***.github/workflows/*.yml**
 
-After the Yml file was created I moved the folder to the root directory 
+After the Yml file was created I moved the folder to the root directory and then it failed

@@ -44,6 +44,11 @@ resource "aws_subnet" "Public_subnet" {
   }
 }
 
+resource "aws_route_table_association" "Public_subnet_association" {
+  subnet_id = aws_subnet.Public_subnet.id
+  route_table_id = aws_route_table.public_route.id  
+}
+
 resource "aws_security_group" "Faks_Sg" {
   name = "Faks_Sg"
   description =  "Security group  for faks vpc"

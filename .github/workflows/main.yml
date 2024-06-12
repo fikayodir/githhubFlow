@@ -3,12 +3,12 @@ on:
   push:
     branches:
       -main
-  # workflow_dispatch:
-  #   inputs:
-  #     config:
-  #       description: 'Terraform Config to apply(config1 or config2)'
-  #       required: true
-  #       default: 'config2'
+  workflow_dispatch:
+    inputs:
+      config:
+        description: 'Terraform Config to apply(config1 or config2)'
+        required: true
+        default: 'config2'
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -98,7 +98,7 @@ resource "aws_vpc_security_group_egress_rule" "Send_http" {
   
 }
 resource "aws_instance" "Vm" {
-  ami = "ami-0bb84b8ffd87024d8"
+  ami = "ami-0e001c9271cf7f3b9"
   instance_type = "t3.medium"
   key_name = "FikayoPair"
   # user_data = <<-EOF
@@ -119,7 +119,7 @@ resource "aws_instance" "Vm" {
     inline = [
       "sudo yum update -y",
       "sudo yum install -y git",
-      "sudo yum install -y dotnet-sdk-5.0",  # Install .NET SDK
+      "sudo yum install dotnet-sdk-6.0",  # Install .NET SDK
       "git clone https://github.com/fikay/360Rides.git",
       "cd 360Rides",
       "dotnet restore",  # Restore dependencies

@@ -9,6 +9,52 @@ terraform {
   backend "s3" {}
 }
 
+resource "aws_vpc" "faks_vpc" {
+    cidr_block = "10.0.0.0/24"
+}
+
+resource "aws_internet_gateway" "Igw" {
+  vpc_id = aws_vpc.faks_vpc.id
+
+  tags = {
+    Name = "Main_Igw"
+  }
+}
+
+resource "aws_route_table" "public_route" {
+  vpc_id = aws_vpc.faks_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.Igw.id
+  }
+
+  tags = {
+    Name = "Public_Route_Table"
+  }
+  
+}
+
+resource "aws_subnet" "Public_subnet" {
+  vpc_id = aws_vpc.faks_vpc.id
+  availability_zone = "us-east-1b"
+  cidr_block = "10.0.0.0/28"
+  tags = {
+    Name = "Public_subnet"
+  }
+}
+
+resource "aws_security_group" "Faks_Sg" {
+  name = "Faks_Sg"
+  description =  "Security group  for faks vpc"
+  vpc_id = aws_vpc.faks_vpc.id
+
+  tags = {
+    name = "Fikayo-SG"
+    key ="Faks_Sg" 
+  }
+  
+}
 
 resource "aws_instance" "Vm" {
   ami = "ami-0bb84b8ffd87024d8"

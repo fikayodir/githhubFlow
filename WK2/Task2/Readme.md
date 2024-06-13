@@ -46,7 +46,7 @@ This task involves running an application in a docker conatiner and for this tas
 ![AppExample](./Assets/Examples.png)
 
 
-#### STOPPING A CONTAINER 
+   #### STOPPING A CONTAINER 
  - Get a list of the running containers using the ```sudo docker ps ```
  - ```sudo docker stop <container id >```
  - ```docker rm <the-container-id>```
@@ -77,3 +77,78 @@ This task involves running an application in a docker conatiner and for this tas
   ![WORKING](./Assets/SIMULapp.png)
 
   Only drawback is you have to reload the page fo rthe second to get the updated todo list.
+
+   Maybe using a sql db will fix this ???
+
+  ### MULTI CONTAINER APPS USING COMPOSE
+  To connect multi containers together in docker they have to be joined to the same network. This example is going to join the todo app to an sql db which is running on anpther container and this will be done by the yaml file and the docker compose.
+
+  - Create a network
+  - Create sql database container
+  - create application container
+  - Join sql database and application container to the network on creation 
+  - Connect the application container to the sql container using
+  ```
+  MYSQL_HOST: mysql
+  ```
+
+  Link to compose file: [Compose File](./getting-started-app//compose.yml)
+
+   One might wonder the yml file does not contain your image how is it spinning up the application? Well due to the fact I am in the working directory of the application when i run the comose command it runs the application straight from the directory using the ***yarn run dev*** and does not require an image for my application
+  To run the compose file, we use the command: 
+  ```
+  sudo docker compose up -d
+  ```
+
+  To pull it all down we use the command: 
+  ```
+  sudo docker compose down
+  ```
+
+  To see logs of the network:
+  ```
+  docker compose logs -f
+  ```
+
+
+  #### PUSHING AND PULLING DOCKER IMAGES
+  I created a docker account hub for myself and created a repository
+  ![Repo](./Assets/repo.png) 
+
+  To push an Image to the repo I used the command:
+  ```
+ Example:  docker push faksdocker/<Image-name>
+
+ Actual: docker push faksdocker/getting-started
+  ```
+
+  ***This resulted in an error as it could not find any image named getting-started***
+
+  I ran this command to see my docker images 
+  ```
+  docker images ls 
+  ```
+
+  ![](./Assets/images.png)
+
+  My command was looking for an image with the name ***faksdocker/getting-started*** but could not find it which cause the push erro r. In order to fix this I have to rename it to match using 
+
+  ```
+  Example: docker tag getting-started YOUR-USER-NAME/getting-started
+
+  Actual: docker tag getting-started faksdocker/getting-started
+  ```
+
+   In order to then push, I logged in to docker:
+   ```
+   Example: docker login -u <your-user-name>
+
+   Actual:  docker login -u faksdocker
+   ```
+  
+
+  And then ran the original command again.
+![Registry](./Assets/Registry.png)
+
+
+## CI/CD 

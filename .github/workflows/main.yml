@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'WK1'
+      - 'WK1/**'
 
 permissions:
   id-token: write

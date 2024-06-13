@@ -60,4 +60,4 @@ sts.amazonaws.com
 
 In order to create the workflow, we have to create a special directory for the yml file as this is where github will pull from. The folder structure looks like this ***.github/workflows/*.yml**
 
-After the Yml file was created I moved the folder to the root directory and then it failed
+After the Yml file was created I moved the folder to the root directory and then pushed to my repositiory 

@@ -63,7 +63,7 @@ jobs:
     
     - name: SSH into EC2 and run commands
       run: |
-            ssh -o StrictHostKeyChecking=no ec2-user@$public_ip 'bash -s' <<'EOF'
+            ssh -o StrictHostKeyChecking=no ec2-user@${{ env.public_ip }} 'bash -s' <<'EOF'
               echo "Connected to EC2"
               # Place your commands here
               # For example, navigate to your project directory and pull the latest changes

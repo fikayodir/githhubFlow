@@ -54,9 +54,7 @@ jobs:
       run: |
         cat WK2/TASK1/tf_output.json
         public_ip=$(jq -r '.instance_public_ip.value' < WK2/TASK1/tf_output.json)
-        echo "public_ip=${public_ip}"
-        echo "::set-env name=PUBLIC_IP::${public_ip}"
-         cat WK2/TASK1/tf_output.json
+        cat WK2/TASK1/tf_output.json
 
     - name: Print public IP environment variable
       run: |

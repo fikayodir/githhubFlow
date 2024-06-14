@@ -50,6 +50,7 @@ jobs:
       run: |
         cd WK2/TASK1
         terraform apply -auto-approve
+        terraform output -json > tf_output.json
     - name: Get Terraform output
       run: |
         cat WK2/TASK1/tf_output.json

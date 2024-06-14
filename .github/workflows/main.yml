@@ -54,6 +54,7 @@ jobs:
     - name: Get Terraform output
       run: |
         cat WK2/TASK1/tf_output.json
+        file -i WK2/TASK1/tf_output.json
         public_ip=$(jq -r '.instance_public_ip.value' < WK2/TASK1/tf_output.json)
         cat WK2/TASK1/tf_output.json
 

@@ -61,7 +61,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no ubuntu@100.28.178.55 'bash -s' <<'EOF'
               echo "Connected to EC2"
               sudo apt update
-              sudo apt install git
-              sudo apt install dotnet-sdk-8.0
+              sudo apt install -y git
+              sudo apt install -y dotnet-sdk-8.0
               git clone https://github.com/fikay/360Rides.git
             EOF

@@ -50,15 +50,11 @@ jobs:
       run: |
         cd WK2/TASK1
         terraform apply -auto-approve
-        terraform output -json > tf_output.json
-        iconv -f US-ASCII -t UTF-8 WK2/TASK1/tf_output.json > WK2/TASK1/tf_output_utf.json
-        mv WK2/TASK1/tf_output_utf.json WK2/TASK1/tf_output.json
+        public_ip=$(terraform output -json | jq -r '.instance_public_ip.value')
+       
     - name: Get Terraform output
       run: |
-        cat WK2/TASK1/tf_output.json
-        file -i WK2/TASK1/tf_output.json
-        public_ip=$(jq -r '.instance_public_ip.value' < WK2/TASK1/tf_output.json)
-        cat WK2/TASK1/tf_output.json
+       echo "public_ip=${public_ip}" >> $GITHUB_ENV
 
     - name: Print public IP environment variable
       run: |

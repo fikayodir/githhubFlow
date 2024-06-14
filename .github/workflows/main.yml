@@ -55,6 +55,10 @@ jobs:
         cat WK2/TASK1/tf_output.json
         public_ip=$(jq -r '.instance_public_ip.value' < WK2/TASK1/tf_output.json)
         echo "public_ip=${public_ip}" >> $GITHUB_ENV
+        echo "::set-output name=public_ip::${public_ip}"
+    - name: Print public IP environment variable
+      run: |
+          echo "Public IP environment variable is $public_ip"
 
     - name: Setup SSH Key
       uses: webfactory/ssh-agent@v0.5.3

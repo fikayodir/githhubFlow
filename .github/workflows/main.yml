@@ -51,6 +51,7 @@ jobs:
         cd WK2/TASK1
         terraform apply -auto-approve
         terraform output -json > tf_output.json
+        touch WK2/TASK1/tf_output_utf8.json
         iconv -f US-ASCII -t UTF-8 WK2/TASK1/tf_output.json > WK2/TASK1/tf_output_utf8.json
         mv WK2/TASK1/tf_output_utf8.json WK2/TASK1/tf_output.json
     - name: Get Terraform output

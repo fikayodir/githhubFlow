@@ -50,3 +50,25 @@ jobs:
       run: |
         cd WK2/TASK1
         terraform apply -auto-approve
+    - name: Get Terraform output
+      run: |
+        cat WK2/TASK1/tf_output.json
+        public_ip=$(jq -r '.instance_public_ip.value' < WK2/TASK1/tf_output.json)
+        echo "public_ip=${public_ip}" >> $GITHUB_ENV
+
+    - name: Setup SSH Key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+    
+    - name: SSH into EC2 and run commands
+      run: |
+            ssh -o StrictHostKeyChecking=no ec2-user@$public_ip 'bash -s' <<'EOF'
+              echo "Connected to EC2"
+              # Place your commands here
+              # For example, navigate to your project directory and pull the latest changes
+              # cd /path/to/your/project
+              # git pull origin main
+              # Other commands, e.g., restarting a service
+              # sudo systemctl restart your-service
+            EOF

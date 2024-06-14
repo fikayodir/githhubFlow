@@ -133,6 +133,10 @@ resource "aws_instance" "Vm" {
   }
 }
 
+output "instance_public_ip" {
+  value = aws_instance.Vm.public_ip
+}
+
 resource "aws_network_interface" "ENI" {
   subnet_id = aws_subnet.Public_subnet.id
   private_ip = aws_eip.Elastic_ip.public_ip

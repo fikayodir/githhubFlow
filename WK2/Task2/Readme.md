@@ -37,7 +37,7 @@ This task involves running an application in a docker conatiner and for this tas
 
 #### CREATING A CONTAINER 
 
- - Once the image has been created al lthat is left is to run the container using ```docker run -dp 127.0.0.1:3000:3000 getting-started```
+ - Once the image has been created all that is left is to run the container using ```docker run -dp 127.0.0.1:3000:3000 getting-started```
  
          d- runs the container in the background
          p- creates a port mapping from 127.0.0.1 to localhost:3000 
